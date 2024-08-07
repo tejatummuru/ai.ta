@@ -1,38 +1,76 @@
-.App {
-  text-align: center;
+/* App.css */
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #5c4d9a;
+  color: #ffe074;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1 {
+  font-size: 2rem;
+  color: #ffdb4d;
+  margin-bottom: 1rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+@font-face {
+  font-family: 'Computer';
+  src: url('../src/components/computer_2/Computer.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  height: 100vh;
 }
 
-.App-link {
-  color: #61dafb;
+input[type="text"],
+textarea {
+  width: 300px;
+  padding: 10px;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  border: none;
+  margin-bottom: 1rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+textarea {
+  height: 100px;
+}
+
+button {
+  display: none; /* Hide the button */
+}
+
+.result {
+  background-color: #ffdb4d;
+  color: #5c4d9a;
+  padding: 10px;
+  border-radius: 5px;
+  width: 300px;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.result-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.result-text {
+  margin-left: 10px;
+  background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
+  padding: 5px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.gavel-svg {
+  width: 50px;
+  height: 50px;
 }

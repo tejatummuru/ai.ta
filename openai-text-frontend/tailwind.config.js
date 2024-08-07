@@ -11,9 +11,23 @@ module.exports = {
         'custom-blue': '#00ccff',
         'custom-black': '#1a1a1a',
         'custom-white': '#ffffff',
+        'light-purple': '#e0b3ff',
+        'custom-red': '#ff0000',
+        'custom-light-blue': '#eb9e52',
+        'border-gold': '#FFD700',
       },
       fontFamily: {
         sans: ['Nunito', 'sans-serif'],
+        computer: ['Computer', 'sans-serif'],
+        roboto: ['Roboto', 'sans-serif'],
+      },
+      borderWidth: {
+        '10': '10px',
+        '20': '20px',
+      },
+      boxShadow: {
+        'custom-border': '0 0 0 6px #A78BFA, 0 0 0 12px #FFD700',
+        'custom-border-2': '0 0 0 6px #A78BFA, 0 0 0 12px #FFD700',
       },
     },
   },

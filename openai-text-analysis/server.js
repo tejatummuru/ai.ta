@@ -7,7 +7,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Your OpenAI API Key
-const OPENAI_API_KEY = '';
+const OPENAI_API_KEY = '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';
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -25,7 +25,7 @@ app.post('/analyze-text', async (req, res) => {
         model: 'gpt-4o-mini',
         messages: [
           { role: 'system', content: 'You are a kind and fair AI.' },
-          { role: 'user', content: `Determine if the person in the following story is "the asshole". Consider the context, actions, and reactions of all parties involved. Respond with "Asshole" or "Not Asshole" and provide a brief explanation.\n\n${text}\n\nConclusion:` }
+          { role: 'user', content: `Determine if the person in the following story is "the asshole". Consider the context, actions, and reactions of all parties involved. Respond with "You are the Asshole!" or "You are Not the Asshole" and provide a brief explanation.\n\n${text}\n\nConclusion:` }
         ],
         max_tokens: 150,
       },
