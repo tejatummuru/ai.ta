@@ -2,15 +2,25 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 const cors = require('cors');
+const vision = require('@google-cloud/vision');
+const multer = require('multer');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 // Your OpenAI API Key
-const OPENAI_API_KEY = '';
 
+
+const client = new vision.ImageAnnotatorClient({
+  keyFilename: 'aita-431820-99331bb9a857.json',
+});
+
+app.use(bodyParser.json());
 app.use(cors());
 app.use(bodyParser.json());
+
+// Set up multer for handling file uploads
+const upload = multer({ storage: multer.memoryStorage() });
 
 app.post('/analyze-text', async (req, res) => {
   const { text } = req.body;
@@ -42,6 +52,18 @@ app.post('/analyze-text', async (req, res) => {
   } catch (error) {
     console.error('Error analyzing text:', error.response ? error.response.data : error.message);
     res.status(500).json({ error: error.response ? error.response.data : 'Error analyzing text' });
+  }
+});
+
+// Endpoint to analyze image
+app.post('/analyze-image', upload.single('image'), async (req, res) => {
+  try {
+    const [result] = await client.textDetection(req.file.buffer);
+    const detections = result.textAnnotations;
+    res.json({ text: detections[0] ? detections[0].description : 'No text found' });
+  } catch (error) {
+    console.error('Error analyzing image:', error);
+    res.status(500).json({ error: 'Error analyzing image' });
   }
 });
 
