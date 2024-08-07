@@ -7,7 +7,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Your OpenAI API Key
-const OPENAI_API_KEY = '';
+const OPENAI_API_KEY = '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';
 
 app.use(cors());
 app.use(bodyParser.json());
