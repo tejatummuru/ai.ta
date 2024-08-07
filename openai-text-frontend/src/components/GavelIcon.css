@@ -1,0 +1,17 @@
+.gavel-container {
+    display: inline-block;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .gavel-svg {
+    width: 100px;
+    height: 100px;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .gavel-bang .gavel-svg #gavel {
+    transform: translateY(100px); /* Adjust this value as needed */
+    transition: transform 0.3s ease-in-out;
+  }
+
