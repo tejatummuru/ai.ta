@@ -4,6 +4,7 @@ import './App.css';
 import GavelIcon from './components/GavelIcon';
 import { FaPlus, FaKeyboard, FaImage, FaMicrophone } from 'react-icons/fa';
 import WaveSurfer from 'wavesurfer.js';
+import { v4 as uuidv4 } from 'uuid';
 
 function App() {
   const [text, setText] = useState('');
@@ -17,6 +18,7 @@ function App() {
   const [imagePreview, setImagePreview] = useState(null);
   const [audioData, setAudioData] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
+  const [conversationId, setConversationId] = useState(uuidv4());
   const fileInputRef = useRef(null);
   const waveformRef = useRef(null);
   const mediaRecorderRef = useRef(null);
@@ -46,34 +48,33 @@ function App() {
     setExplanation('');
 
     try {
+      let res;
       if (inputType === 'text') {
-        const res = await axios.post('http://localhost:3000/analyze-text', { text });
-        setIsBanging(true);
-        setTimeout(() => {
-          setIsBanging(false);
-          setVerdict(res.data.verdict);
-          setExplanation(res.data.explanation);
-        }, 500);
+        res = await axios.post('http://localhost:3000/analyze-text', { text, conversationId });
       } else if (inputType === 'image') {
         const formData = new FormData();
         formData.append('image', file);
-        const res = await axios.post('http://localhost:3000/analyze-image', formData, {
+        formData.append('conversationId', conversationId);
+        res = await axios.post('http://localhost:3000/analyze-image', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
         });
-        setVerdict(res.data.verdict);
-        setExplanation(res.data.explanation);
       } else if (inputType === 'audio') {
-        console.log('Audio Data:', audioData);
         const formData = new FormData();
         formData.append('audio', audioData, 'audio.wav');
-        console.log('FormData:', formData);
-        const res = await axios.post('http://localhost:3000/analyze-audio', formData, {
+        formData.append('conversationId', conversationId);
+        res = await axios.post('http://localhost:3000/analyze-audio', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
         });
+      }
+
+      if (res.data.verdict === 'Need More Information') {
+        setVerdict('Need More Information');
+        setExplanation('The input provided was insufficient to reach a conclusion. Please provide more context or details.');
+      } else {
         setVerdict(res.data.verdict);
         setExplanation(res.data.explanation);
       }
