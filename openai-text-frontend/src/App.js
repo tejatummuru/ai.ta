@@ -71,13 +71,9 @@ function App() {
         });
       }
 
-      if (res.data.verdict === 'Need More Information') {
-        setVerdict('Need More Information');
-        setExplanation('The input provided was insufficient to reach a conclusion. Please provide more context or details.');
-      } else {
-        setVerdict(res.data.verdict);
-        setExplanation(res.data.explanation);
-      }
+      const { verdict, explanation } = res.data;
+      setVerdict(verdict);
+      setExplanation(explanation);
     } catch (error) {
       console.error(`Error analyzing ${inputType}:`, error);
       setVerdict(`Error analyzing ${inputType}.`);
@@ -210,7 +206,7 @@ function App() {
         </form>
         <div className="bg-yellow-300 p-4 rounded-md shadow-md">
           <h2 className="text-purple-700 font-bold">Explanation:</h2>
-          <p className="text-purple-700">{explanation}</p>
+          <p className="text-purple-700 leading-relaxed">{explanation}</p>
         </div>
       </div>
     </div>
