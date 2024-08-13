@@ -10,6 +10,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Your OpenAI API Key
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
 // Instantiate a client
 const client = new vision.ImageAnnotatorClient({
